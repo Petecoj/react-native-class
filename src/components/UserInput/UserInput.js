@@ -1,37 +1,47 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { TextInput, StyleSheet, Button, View } from 'react-native';
 
-namePlaceChangeHandler = (event) => {
-  this.setState({
-    namePlace: event
-  })
-}
-submitButtonHandler = () => {
-  this.setState({
-    places: [...this.state.places, this.state.namePlace]
-  })
-}
 
-const UserInput = (props) => {
+class UserInput extends Component {
+  state = {
+    placeName: ""
+  };
+
+placeNameChangedHandler = val => {
+    this.setState({
+      placeName: val
+    });
+  };
+
+placeSubmitHandler = () => {
+    if (this.state.placeName.trim() === "") {
+      return;
+    }
+
+    this.props.onPlaceAdded(this.state.placeName);
+  };
+
+
+render(){
     return (
     <View style={styles.inputContainer}>
     <TextInput 
-        // value={props.namePlace}
+        value={this.state.placeName}
         style={styles.textInput}
-        onChangeText={props.namePlaceChangeHandler}
+        onChangeText={this.placeNameChangedHandler}
         placeholder="An Awesome Place"
 
 />
     <Button title="ADD"
-            onPress={props.submit}/>
+            onPress={this.placeSubmitHandler}/>
     </View>
     )
   };
+
+}
 const styles = StyleSheet.create({
   textInput: {
    width: "70%",
-   borderColor: "black",
-   borderWidth: 1
   },
   inputContainer: {
     width: "100%",
