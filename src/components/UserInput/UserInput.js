@@ -19,6 +19,9 @@ placeSubmitHandler = () => {
     }
 
     this.props.onPlaceAdded(this.state.placeName);
+    console.log(this.state.placeName);
+    
+
   };
 
 
